@@ -1,0 +1,59 @@
+# source file: applications
+
+# System package groups
+GROUP_PACKAGES=(
+    @base-x
+    @standard
+    @multimedia
+    @virtualization
+)
+
+# Bare-bones Xfce4
+XFCE_PACKAGES=(
+    exo
+    garcon
+    libxfce4ui
+    libxfce4util
+	lightdm-gtk
+    thunar
+    thunar-archive-plugin
+    tumbler
+    xfce4-notifyd
+    xfce4-panel
+    xfce4-power-manager
+    xfce4-pulseaudio-plugin
+    xfce4-screenshooter
+    xfce4-session
+    xfce4-settings
+    xfce4-taskmanager
+    xfce4-terminal
+    xfconf
+    xfdesktop
+    xfwm4
+)
+
+# Additional applications
+ADDON_PACKAGES=(
+    atril
+    chrony
+    dnf-automatic
+    firefox-esr
+    firejail
+    firewall-config
+    geany
+    gh
+    gparted
+    greybird-dark-theme
+    libavcodec-freeworld
+    libvirt
+    nm-connection-editor
+    nordvpn
+    p7zip
+    papirus-icon-theme-dark
+    srm
+    transmission-gtk
+    viewnior
+    vlc
+    xarchiver
+    xed
+)

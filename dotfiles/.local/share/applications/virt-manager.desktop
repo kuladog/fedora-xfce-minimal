@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=VM Manager
+Comment=Manage virtual machines
+Icon=virt-manager
+Exec=virt-manager
+Type=Application
+Terminal=false
+Keywords=vmm;
+Categories=System;

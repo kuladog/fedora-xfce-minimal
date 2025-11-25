@@ -1,0 +1,5 @@
+# ~/.config/firejail/global.local
+
+machine-id
+nonewprivs
+x11 xorg

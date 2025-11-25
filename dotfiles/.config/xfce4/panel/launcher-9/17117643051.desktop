@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Updater
+Comment=Sytem updates
+Exec=sudo dnf -y update
+Icon=/usr/share/icons/gnome/32x32/status/security-medium.png
+Path=
+Terminal=true
+StartupNotify=false

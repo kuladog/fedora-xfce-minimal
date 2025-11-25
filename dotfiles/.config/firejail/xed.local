@@ -1,0 +1,10 @@
+# ~/.config/firejail/xed.local
+
+noblacklist ${HOME}/
+
+caps.drop all
+machine-id
+net none
+protocol unix
+
+private-tmp
