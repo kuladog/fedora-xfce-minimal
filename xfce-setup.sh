@@ -25,13 +25,13 @@ clear
 
 root_check() {
 	if [[ $EUID -ne 0 ]]; then
-	  echo "This script must be run as root."
+	  echo "The script must be run as root."
 	  exit 1
 	fi
 }
 
 user_confirm() {
-	echo -e "\n\n This script will modify system configurations and install additional packages."
+	echo -e "\n This will modify system configurations and install additional packages."
 	echo -n " Are you sure you want to continue? [Y/n]: "
 	read -r confirm
 	c="${confirm:-y}"
