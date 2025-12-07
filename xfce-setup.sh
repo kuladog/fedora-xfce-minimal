@@ -25,7 +25,7 @@ clear
 
 root_check() {
 	if [[ $EUID -ne 0 ]]; then
-	  echo "The script must be run as root."
+	  echo "Run the script as root."
 	  exit 1
 	fi
 }
@@ -309,7 +309,7 @@ no_recents() {
 }
 
 clean_firefox() {
-	echo -e "\nHardening Firefox web browser ...\n"
+	echo -e "\nHardening Firefox ...\n"
 
 	firefox_dirs=(
 		/usr/lib64/firefox
@@ -339,7 +339,8 @@ clean_firefox
 #    SETUP COMPLETE
 #================================================
 
-echo -e "\nSetup complete! Press any key to reboot..."
+clear
+echo -e "\n Setup complete!\n\n Press any key to reboot..."
 read -n 1 -rs
 
 # Clean up
