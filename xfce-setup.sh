@@ -266,6 +266,7 @@ nordvpn_config() {
 			nordvpn set cybersec on
 			nordvpn set post-quantum on
 			nordvpn set analytics off
+			nordvpn set dns 9.9.9.9 149.112.112.112
 		"
 	fi
 }
@@ -304,7 +305,6 @@ no_recents() {
 
 	truncate -s 0 "$recent"
 
-	# Make immutable
 	chattr +i "$recent" 2>/dev/null || true
 }
 
