@@ -216,8 +216,6 @@ firewalld_config() {
 	ruleset=(
 		--set-default-zone=drop
 		--add-service=https
-		--remove-forward
-		--remove-masquerade
 		--add-icmp-block-inversion
 		)
 
@@ -264,10 +262,10 @@ nordvpn_config() {
 
 		# Set nordvpn prefs
 		runuser -l "$NAME" -c "
-			nordvpn set technology NordLynx
+			nordvpn set technology openvpn
+			nordvpn set protocol tcp
 			nordvpn set dns 9.9.9.9 149.112.112.112
 			nordvpn set autoconnect on
-			nordvpn set arp-ignore on
 			nordvpn set analytics off
 		"
 	fi
