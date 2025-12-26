@@ -5,7 +5,7 @@
 #  A simple bash script to set up a Fedora Xfce Minimal Workstation
 #
 #  Repo: github.com/kuladog/fedora-xfce-minimal
-#  Revised: 2025-10-22
+#  Revised: 2025-12-26
 #
 
 set -euo pipefail
@@ -31,7 +31,7 @@ root_check() {
 }
 
 user_confirm() {
-	echo -e "\n This will modify system configurations and install additional packages."
+	echo -e "\n This will modify system configurations and install additional packages.\n"
 	echo -n " Are you sure you want to continue? [Y/n]: "
 	read -r confirm
 	c="${confirm:-y}"
@@ -69,7 +69,7 @@ source_bloatware() {
 }
 
 add_repositories() {
-	echo -e "\nEnabling additional repositories ...\n"
+	echo -e "\nEnabling additional repositories ..."
 
 	# Enable RPM Fussion repos
 	dnf install -y \
@@ -86,12 +86,11 @@ add_repositories() {
 }
 
 install_packages() {
-	local pkg_type="$1"
-	local pkg_list=("${!2}")
+	echo -e "\nInstalling additional packages ..."
 
-	echo -e "\nInstalling $pkg_type ...\n"
+	PKGS=(${GROUP_PACKAGES[@]} ${XFCE_PACKAGES[@]} ${ADDON_PACKAGES[@]})
 
-	dnf install -y --skip-unavailable --allowerasing "${pkg_list[@]}"
+	dnf install -y --skip-unavailable --allowerasing "${PKGS[@]}"
 
 	# Check if running in VM
 	if [[ $(systemd-detect-virt) != none ]]; then
@@ -100,8 +99,22 @@ install_packages() {
 	fi
 }
 
+install_theme() {
+	local theme_dir="/home/${NAME}/.themes"
+
+	curl -LO https://github.com/kuladog/adwaita-grey-dark/archive/refs/heads/main.zip
+
+	if [[ -f ${DIR}/main.zip ]]; then
+		echo -e "\nInstalling desktop theme ..."
+
+		unzip main.zip
+		mkdir -p "$theme_dir"
+		mv *grey-dark*/ "${theme_dir}"/Adwaita-grey-dark
+	fi
+}
+
 remove_bloatware() {
-	echo -e "\nRemoving unwanted packages ...\n"
+	echo -e "\nRemoving unwanted packages ..."
 
 	# Need to loop when removing
 	if [[ -f ${DIR}/bloatware ]]; then
@@ -115,17 +128,16 @@ remove_bloatware() {
 source_applications
 source_bloatware
 add_repositories
-install_packages "System Package Groups" GROUP_PACKAGES[@]
-install_packages "Xfce Desktop Environment" XFCE_PACKAGES[@]
-install_packages "Additional Applications" ADDON_PACKAGES[@]
+install_packages
+install_theme
 remove_bloatware
 
 #================================================
 #    SYSTEM CONFIGURATION
 #================================================
 
-copy_etc() {
-	echo -e "\nCopying configuration files ...\n"
+copy_configs() {
+	echo -e "\nCopying configuration files ..."
 
 	# Set user, host and copy
 	if [[ -d ${DIR}/configs ]]; then
@@ -140,7 +152,7 @@ copy_etc() {
 }
 
 grub_config() {
-	echo -e "\nUpdating GRUB configuration ...\n"
+	echo -e "\nUpdating GRUB configuration ..."
 
 	# Rebuild the grub.cfg
 	if [[ -f /etc/default/grub ]]; then
@@ -149,7 +161,7 @@ grub_config() {
 }
 
 fstab_config() {
-    echo -e "\nConfiguring filesystem table ...\n"
+    echo -e "\nConfiguring filesystem table ..."
 
 	local fstable="/etc/fstab"
 
@@ -167,13 +179,12 @@ fstab_config() {
 		echo "tmpfs /tmp        tmpfs   nodev,nosuid,noexec 0 0"
 		echo "tmpfs /var/tmp    tmpfs   nodev,nosuid,noexec 0 0"
 		echo "tmpfs /dev/shm    tmpfs   nodev,nosuid,noexec 0 0"
-		echo "proc  /proc       proc    nodev,nosuid,noexec 0 0"
 		} >> "$fstable"
 	fi
 }
 
 lightdm_config() {
-	echo -e "\nConfiguring display manager ...\n"
+	echo -e "\nConfiguring display manager ..."
 
 	# Warn if not installed
 	if command -v lightdm &>/dev/null; then
@@ -187,13 +198,13 @@ lightdm_config() {
 set_libvirt() {
 	# Add user to group
 	if command -v libvirtd &>/dev/null; then
-		echo -e "\nConfiguring virt-manager ...\n"
+		echo -e "\nConfiguring virt-manager ..."
 
 		usermod -aG libvirt "$NAME"
 	fi
 }
 
-copy_etc
+copy_configs
 grub_config
 fstab_config
 lightdm_config
@@ -206,7 +217,7 @@ set_libvirt
 dnf_security() {
 	# Enable if installed
 	if command -v dnf-automatic &>/dev/null; then
-		echo -e "\nEnabling DNF security updates ...\n"
+		echo -e "\nEnabling DNF security updates ..."
 
 		systemctl enable --now dnf-automatic.timer
 	fi
@@ -220,7 +231,7 @@ firewalld_config() {
 		)
 
 	if command -v firewalld &>/dev/null; then
-		echo -e "\nConfiguring Firewalld ...\n"
+		echo -e "\nConfiguring Firewalld ..."
 
 		# Set firewall defaults
 		for rule in "${ruleset[@]}"; do
@@ -231,7 +242,7 @@ firewalld_config() {
 
 firejail_config() {
 	if command -v firejail &>/dev/null; then
-		echo -e "\nConfiguring Firejail ...\n"
+		echo -e "\nConfiguring Firejail ..."
 
 		# Create firejail group
 		if ! getent group firejail &>/dev/null; then
@@ -252,7 +263,7 @@ firejail_config() {
 
 nordvpn_config() {
 	if command -v nordvpn &>/dev/null; then
-		echo -e "\nConfiguring NordVPN ...\n"
+		echo -e "\nConfiguring NordVPN ..."
 
 		if ! groups "$NAME" | grep -q nordvpn; then
 			usermod -aG nordvpn "$NAME"
@@ -265,7 +276,6 @@ nordvpn_config() {
 			nordvpn set technology openvpn
 			nordvpn set protocol tcp
 			nordvpn set dns 9.9.9.9 149.112.112.112
-			nordvpn set autoconnect on
 			nordvpn set analytics off
 		"
 	fi
@@ -277,13 +287,11 @@ firejail_config
 nordvpn_config
 
 #================================================
-#    SET-UP USER FILES
+#    SETUP USER DIRECTORY
 #================================================
 
-setup_home() {
-	echo -e "\nCopying dotfiles ...\n"
-
-	mkdir -p /home/"${NAME}"/{Documents,Downloads,Projects}
+copy_dotfiles() {
+	echo -e "\nCopying dotfiles ..."
 
 	# Set username while copying
 	if [[ -d ${DIR}/dotfiles ]]; then
@@ -293,47 +301,44 @@ setup_home() {
 			sed -e "s|<user>|${NAME}|" "$file" > "$dest"
 		done
 	fi
+}
+
+set_permissions() {
+	echo -e "\nSetting $HOME permissions ..."
+
+	mkdir -p /home/"${NAME}"/{Documents,Downloads,Projects}
 
 	chown -R "${NAME}":"${NAME}" /home/"${NAME}"
 	chmod -R 0750 /home/"${NAME}"
 }
 
-no_recents() {
-	echo -e "\nDisabling recent files ...\n"
+disable_recents() {
+	echo -e "\nDisabling recent files ..."
 
 	local recent="/home/$(logname)/.local/share/recently-used.xbel"
 
+	# Clear and make immutable
 	truncate -s 0 "$recent"
-
 	chattr +i "$recent" 2>/dev/null || true
 }
 
-clean_firefox() {
-	echo -e "\nHardening Firefox ...\n"
+harden_firefox() {
+	echo -e "\nHardening Firefox ..."
 
-	firefox_dirs=(
-		/usr/lib64/firefox
-		/opt/firefox-esr
-	)
-	features=(
-		crashreporter
-		pingsender
-#		"browser/features/pocket@mozilla.org.xpi"
-#		"browser/features/screenshots@mozilla.org.xpi"
-#		"browser/features/webcompat-reporter@mozilla.org.xpi"
-	)
+	firefox_dirs=("/usr/lib64/firefox" "/opt/firefox-esr")
 
 	# Remove telemetry features
 	for dir in "${firefox_dirs[@]}"; do
-		for f in "${features[@]}"; do
+		for f in crashreporter pingsender; do
 			[[ -f ${dir}/${f} ]] && rm -f "${dir}"/"${f}"
 		done
 	done
 }
 
-setup_home
-no_recents
-clean_firefox
+copy_dotfiles
+set_permissions
+disable_recents
+harden_firefox
 
 #================================================
 #    SETUP COMPLETE

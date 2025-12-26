@@ -25,7 +25,6 @@ XFCE_PACKAGES=(
     xfce4-screenshooter
     xfce4-session
     xfce4-settings
-    xfce4-taskmanager
     xfce4-terminal
     xfconf
     xfdesktop
@@ -43,14 +42,13 @@ ADDON_PACKAGES=(
     geany
     gh
     gparted
-    greybird-dark-theme
+    htop
     libavcodec-freeworld
     libvirt
     nm-connection-editor
     nordvpn
     p7zip
     papirus-icon-theme-dark
-    srm
     transmission-gtk
     viewnior
     vlc
