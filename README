@@ -1,13 +1,13 @@
 Fedora Xfce Minimal Setup
 ==========================
 
-A simple bash script to automate a Fedora Xfce Minimal set up. Complete with configuration
-files to build a hardened system with a stripped-down Xfce desktop.
+A simple bash script to setup a Fedora Xfce Minimal installation. Focus is on building a
+sleek security-hardened system that retains functionality as daily driver.
 
 It’s designed to build on the smallest Fedora installation possible — ideally from the
-Everything ISO. Just install the "Standard" group and clone this repo to the user directory.
-It’ll pull in a minimal set of Xfce and app packages, drop in some hardened configs, and
-set up the user environment with dotfiles.
+Everything ISO. Just install the default "Custom Operating System" then clone this repo into
+the user directory and run the script. It’ll pull in a minimal set of Xfce and app packages,
+drop in some hardened configs, and set up the user environment.
 
 Any file in the 'configs' and 'dotfiles' directories can be edited, added, or removed without
 touching the script. The only required file is 'applications'. The 'bloatware' file can be
