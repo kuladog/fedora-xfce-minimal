@@ -39,7 +39,6 @@ BLOATWARE_PACKAGES=(
     kasumi-unicode
     kexec-tools
     khmeros-base-fonts
-    libreoffice*
     libreport
     mailcap
     mediawriter
