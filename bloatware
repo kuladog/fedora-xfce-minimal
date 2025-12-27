@@ -41,6 +41,7 @@ BLOATWARE_PACKAGES=(
     khmeros-base-fonts
     libreoffice*
     libreport
+    mailcap
     mediawriter
     minicom
     ModemManager

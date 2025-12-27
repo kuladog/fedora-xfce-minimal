@@ -5,7 +5,7 @@ GROUP_PACKAGES=(
     @base-x
     @standard
     @multimedia
-    @virtualization
+#    @virtualization
 )
 
 # Bare-bones Xfce4
@@ -26,6 +26,7 @@ XFCE_PACKAGES=(
     xfce4-session
     xfce4-settings
     xfce4-terminal
+    xfce4-taskmanager
     xfconf
     xfdesktop
     xfwm4
@@ -42,9 +43,9 @@ ADDON_PACKAGES=(
     geany
     gh
     gparted
-    htop
     libavcodec-freeworld
-    libvirt
+#    libreoffice-writer
+#    libvirt
     nm-connection-editor
     nordvpn
     p7zip
