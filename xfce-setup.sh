@@ -30,7 +30,7 @@ root_check() {
 	fi
 }
 
-user_confirm() {
+confirm_prompt() {
 	echo -e "\n This will modify system configurations and install additional packages.\n"
 	echo -n " Are you sure you want to continue? [Y/n]: "
 	read -r confirm
@@ -43,7 +43,7 @@ user_confirm() {
 }
 
 root_check
-user_confirm
+confirm_prompt
 
 #================================================
 #    PACKAGE MANAGEMENT
@@ -88,14 +88,14 @@ add_repositories() {
 install_packages() {
 	echo -e "\nInstalling additional packages ..."
 
-	PKGS=(${GROUP_PACKAGES[@]} ${XFCE_PACKAGES[@]} ${ADDON_PACKAGES[@]})
+	pkgs=("${GROUP_PACKAGES[@]}" "${XFCE_PACKAGES[@]}" "${ADDON_PACKAGES[@]}")
 
-	dnf install -y --skip-unavailable --allowerasing "${PKGS[@]}"
+	dnf install -y --skip-unavailable --allowerasing "${pkgs[@]}"
 
 	# Check if running in VM
 	if [[ $(systemd-detect-virt) != none ]]; then
-		echo -e "\nInstalling guest agents ...\n"
-		dnf install -y qemu-guest-agent spice-vdagent
+		echo -e "\nInstalling guest agents ..."
+		dnf install -y @guest-desktop-agents
 	fi
 }
 
@@ -109,7 +109,7 @@ install_theme() {
 
 		unzip main.zip
 		mkdir -p "$theme_dir"
-		mv *grey-dark*/ "${theme_dir}"/Adwaita-grey-dark
+		mv ./*grey-dark* "${theme_dir}"/Adwaita-grey-dark
 	fi
 }
 
@@ -136,7 +136,7 @@ remove_bloatware
 #    SYSTEM CONFIGURATION
 #================================================
 
-copy_configs() {
+config_files() {
 	echo -e "\nCopying configuration files ..."
 
 	# Set user, host and copy
@@ -151,7 +151,7 @@ copy_configs() {
 	chown -R root:root /etc
 }
 
-grub_config() {
+config_grub() {
 	echo -e "\nUpdating GRUB configuration ..."
 
 	# Rebuild the grub.cfg
@@ -160,7 +160,7 @@ grub_config() {
 	fi
 }
 
-fstab_config() {
+config_fstab() {
     echo -e "\nConfiguring filesystem table ..."
 
 	local fstable="/etc/fstab"
@@ -183,7 +183,7 @@ fstab_config() {
 	fi
 }
 
-lightdm_config() {
+config_lightdm() {
 	echo -e "\nConfiguring display manager ..."
 
 	# Warn if not installed
@@ -195,7 +195,7 @@ lightdm_config() {
 	fi
 }
 
-set_libvirt() {
+config_libvirt() {
 	# Add user to group
 	if command -v libvirtd &>/dev/null; then
 		echo -e "\nConfiguring virt-manager ..."
@@ -204,17 +204,17 @@ set_libvirt() {
 	fi
 }
 
-copy_configs
-grub_config
-fstab_config
-lightdm_config
-set_libvirt
+config_files
+config_grub
+config_fstab
+config_lightdm
+config_libvirt
 
 #================================================
 #    SYSTEM SECURITY
 #================================================
 
-dnf_security() {
+security_dnf() {
 	# Enable if installed
 	if command -v dnf-automatic &>/dev/null; then
 		echo -e "\nEnabling DNF security updates ..."
@@ -223,7 +223,7 @@ dnf_security() {
 	fi
 }
 
-firewalld_config() {
+security_firewall() {
 	ruleset=(
 		--set-default-zone=drop
 		--add-service=https
@@ -240,7 +240,7 @@ firewalld_config() {
 	fi
 }
 
-firejail_config() {
+security_firejail() {
 	if command -v firejail &>/dev/null; then
 		echo -e "\nConfiguring Firejail ..."
 
@@ -261,7 +261,7 @@ firejail_config() {
 	fi
 }
 
-nordvpn_config() {
+security_nordvpn() {
 	if command -v nordvpn &>/dev/null; then
 		echo -e "\nConfiguring NordVPN ..."
 
@@ -281,16 +281,16 @@ nordvpn_config() {
 	fi
 }
 
-dnf_security
-firewalld_config
-firejail_config
-nordvpn_config
+security_dnf
+security_firewall
+security_firejail
+security_nordvpn
 
 #================================================
 #    SETUP USER DIRECTORY
 #================================================
 
-copy_dotfiles() {
+user_dotfiles() {
 	echo -e "\nCopying dotfiles ..."
 
 	# Set username while copying
@@ -303,7 +303,7 @@ copy_dotfiles() {
 	fi
 }
 
-set_permissions() {
+user_permissions() {
 	echo -e "\nSetting $HOME permissions ..."
 
 	mkdir -p /home/"${NAME}"/{Documents,Downloads,Projects}
@@ -312,17 +312,17 @@ set_permissions() {
 	chmod -R 0750 /home/"${NAME}"
 }
 
-disable_recents() {
+user_no_recents() {
 	echo -e "\nDisabling recent files ..."
 
-	local recent="/home/$(logname)/.local/share/recently-used.xbel"
+	local recents_dir="/home/$(logname)/.local/share/recently-used.xbel"
 
 	# Clear and make immutable
-	truncate -s 0 "$recent"
-	chattr +i "$recent" 2>/dev/null || true
+	truncate -s 0 "$recents_dir"
+	chattr +i "$recents_dir" 2>/dev/null || true
 }
 
-harden_firefox() {
+user_firefox() {
 	echo -e "\nHardening Firefox ..."
 
 	firefox_dirs=("/usr/lib64/firefox" "/opt/firefox-esr")
@@ -335,10 +335,10 @@ harden_firefox() {
 	done
 }
 
-copy_dotfiles
-set_permissions
-disable_recents
-harden_firefox
+user_dotfiles
+user_permissions
+user_no_recents
+user_firefox
 
 #================================================
 #    SETUP COMPLETE
