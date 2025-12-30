@@ -8,14 +8,14 @@ PubkeyAuthentication yes
 PasswordAuthentication no
 PermitRootLogin no
 LoginGraceTime 20
-ClientAliveInterval 15
-ClientAliveCountMax 3
 MaxAuthTries 3
 MaxSessions 1
 MaxStartups 1
+ClientAliveInterval 15
+ClientAliveCountMax 3
+TCPKeepAlive no
 Port
 Protocol 2
-TCPKeepAlive no
 DisableForwarding yes
 ChrootDirectory none
 LogLevel VERBOSE
