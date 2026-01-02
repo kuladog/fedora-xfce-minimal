@@ -107,8 +107,9 @@ install_theme() {
 	if [[ -f ${DIR}/main.zip ]]; then
 		echo -e "\nInstalling desktop theme ..."
 
-		unzip main.zip
 		mkdir -p "$theme_dir"
+
+		unzip -q main.zip
 		mv ./*grey-dark* "${theme_dir}"/Adwaita-grey-dark
 	fi
 }
@@ -160,8 +161,8 @@ config_grub() {
 	fi
 }
 
-config_fstab() {
-    echo -e "\nConfiguring filesystem table ..."
+config_mountpoints() {
+    echo -e "\nHardening system mount points ..."
 
 	local fstable="/etc/fstab"
 
@@ -176,10 +177,13 @@ config_fstab() {
 		"$fstable"
 
 		{
-		echo "tmpfs /tmp        tmpfs   nodev,nosuid,noexec 0 0"
-		echo "tmpfs /var/tmp    tmpfs   nodev,nosuid,noexec 0 0"
-		echo "tmpfs /dev/shm    tmpfs   nodev,nosuid,noexec 0 0"
+		echo "tmpfs /tmp        tmpfs   noatime,nodev,nosuid,noexec 0 0"
+		echo "tmpfs /var/tmp    tmpfs   noatime,nodev,nosuid,noexec 0 0"
+		echo "tmpfs /dev/shm    tmpfs   noatime,nodev,nosuid,noexec 0 0"
 		} >> "$fstable"
+
+		chmod 1777 /tmp
+		chmod 1777 /var/tmp
 	fi
 }
 
@@ -206,7 +210,7 @@ config_libvirt() {
 
 config_files
 config_grub
-config_fstab
+config_mountpoints
 config_lightdm
 config_libvirt
 
@@ -228,6 +232,7 @@ security_firewall() {
 		--set-default-zone=drop
 		--add-service=https
 		--add-icmp-block-inversion
+		--add-rich-rule='rule family="ipv6" source address="::/0" reject'
 		)
 
 	if command -v firewalld &>/dev/null; then
@@ -238,6 +243,19 @@ security_firewall() {
 			firewall-cmd "$rule"
 		done
 	fi
+}
+
+security_nmcli() {
+    if command -v NetworkManager &>/dev/null; then
+        echo -e "\nConfiguring NetworkManager ..."
+
+		# Use drop rules globally
+		nmcli connection modify "*" connection.zone drop
+
+        # Prevent DNS injection globally
+        nmcli connection modify "*" ipv4.dns "none"
+        nmcli connection modify "*" ipv4.ignore-auto-dns yes
+    fi
 }
 
 security_firejail() {
@@ -265,6 +283,7 @@ security_nordvpn() {
 	if command -v nordvpn &>/dev/null; then
 		echo -e "\nConfiguring NordVPN ..."
 
+		# Add user to nordvpn group
 		if ! groups "$NAME" | grep -q nordvpn; then
 			usermod -aG nordvpn "$NAME"
 		fi
@@ -283,6 +302,7 @@ security_nordvpn() {
 
 security_dnf
 security_firewall
+security_nmcli
 security_firejail
 security_nordvpn
 

@@ -11,9 +11,8 @@ root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
 
 Cmnd_Alias DNF = /usr/bin/dnf
-Cmnd_Alias REBOOT = /sbin/reboot ""
-Cmnd_Alias SHUTDOWN = /sbin/poweroff ""
+Cmnd_Alias REBOOT = /sbin/reboot
+Cmnd_Alias SHUTDOWN = /sbin/poweroff
 
 <user> ALL=(root) NOPASSWD: DNF
-<user> ALL=(root) NOPASSWD: REBOOT
-<user> ALL=(root) NOPASSWD: SHUTDOWN
+<user> ALL=(root) NOPASSWD: REBOOT, SHUTDOWN

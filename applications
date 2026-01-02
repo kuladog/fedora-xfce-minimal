@@ -5,7 +5,7 @@ GROUP_PACKAGES=(
     @base-x
     @standard
     @multimedia
-#   @virtualization
+#    @virtualization
 )
 
 # Bare-bones Xfce4
@@ -44,10 +44,9 @@ ADDON_PACKAGES=(
     gh
     gparted
     libavcodec-freeworld
-#   libreoffice-writer
-#   libvirt
+    libvirt
     nm-connection-editor
-    nordvpn
+#    nordvpn
     p7zip
     papirus-icon-theme-dark
     transmission-gtk

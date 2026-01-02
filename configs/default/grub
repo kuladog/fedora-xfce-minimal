@@ -1,9 +1,9 @@
 # /etc/default/grub
 
-GRUB_CMDLINE_LINUX_DEFAULT="rhgb quiet lockdown=integrity lsm=lockdown,yama,selinux"
+GRUB_TIMEOUT=0
+GRUB_DEFAULT=0
+GRUB_CMDLINE_LINUX_DEFAULT="quiet lockdown=integrity lsm=lockdown,yama,selinux"
 GRUB_CMDLINE_LINUX="audit=1 module.sig_enforce=1 force_randomize=on"
-GRUB_ENABLE_BLSCFG=true
+GRUB_DISABLE_RECOVERY=false
 GRUB_GFXMODE=auto
 GRUB_GFXPAYLOAD_LINUX=keep
-GRUB_TERMINAL_OUTPUT=console
-GRUB_TIMEOUT=0
