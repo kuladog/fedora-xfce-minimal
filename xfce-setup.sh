@@ -2,10 +2,10 @@
 
 #  xfce-setup.sh
 #
-#  A simple bash script to set up a Fedora Xfce Minimal Workstation
+#  A simple bash script to set up a Fedora Xfce Minimal workstation
 #
 #  Repo: github.com/kuladog/fedora-xfce-minimal
-#  Revised: 2025-12-26
+#  Revised: 2026-01-01
 #
 
 set -euo pipefail
@@ -162,11 +162,11 @@ config_grub() {
 }
 
 config_mountpoints() {
-    echo -e "\nHardening system mount points ..."
+    echo -e "\nHardening mount points ..."
 
 	local fstable="/etc/fstab"
 
-	# Backup fstab and edit in place
+	# Backup fstab and edit in place.. old skool
 	if [[ -w /etc/fstab ]]; then
 		sed -i \
 		-e '/boot/ s=relatime=noatime=' \
@@ -182,8 +182,7 @@ config_mountpoints() {
 		echo "tmpfs /dev/shm    tmpfs   noatime,nodev,nosuid,noexec 0 0"
 		} >> "$fstable"
 
-		chmod 1777 /tmp
-		chmod 1777 /var/tmp
+		chmod 1777 /tmp /var/tmp /dev/shm
 	fi
 }
 
