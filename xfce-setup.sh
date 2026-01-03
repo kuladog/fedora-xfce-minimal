@@ -25,7 +25,7 @@ clear
 
 root_check() {
 	if [[ $EUID -ne 0 ]]; then
-	  echo "Run the script as root."
+	  echo -e "\nRun the script as root.\n"
 	  exit 1
 	fi
 }
@@ -245,19 +245,6 @@ security_firewall() {
 	fi
 }
 
-security_nmcli() {
-    if command -v NetworkManager &>/dev/null; then
-        echo -e "\nConfiguring NetworkManager ..."
-
-		# Use drop rules globally
-		nmcli connection modify "*" connection.zone drop
-
-        # Prevent DNS injection globally
-        nmcli connection modify "*" ipv4.dns "none"
-        nmcli connection modify "*" ipv4.ignore-auto-dns yes
-    fi
-}
-
 security_firejail() {
 	if command -v firejail &>/dev/null; then
 		echo -e "\nConfiguring Firejail ..."
@@ -302,7 +289,6 @@ security_nordvpn() {
 
 security_dnf
 security_firewall
-security_nmcli
 security_firejail
 security_nordvpn
 
@@ -324,7 +310,7 @@ user_dotfiles() {
 }
 
 user_permissions() {
-	echo -e "\nSetting $HOME permissions ..."
+	echo -e "\nSetting ${NAME} permissions ..."
 
 	mkdir -p /home/"${NAME}"/{Documents,Downloads,Projects}
 
@@ -345,12 +331,13 @@ user_no_recents() {
 user_firefox() {
 	echo -e "\nHardening Firefox ..."
 
-	firefox_dirs=("/usr/lib64/firefox" "/opt/firefox-esr")
+	firefox_dirs=(/usr/lib{,64}/firefox /opt/firefox{,-esr})
 
 	# Remove telemetry features
 	for dir in "${firefox_dirs[@]}"; do
+		[[ -d $dir ]] || continue
 		for f in crashreporter pingsender; do
-			[[ -f ${dir}/${f} ]] && rm -f "${dir}"/"${f}"
+			rm -f "${dir}/${f}"
 		done
 	done
 }

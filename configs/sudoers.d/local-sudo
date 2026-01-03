@@ -10,7 +10,7 @@ Defaults  use_pty
 root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
 
-Cmnd_Alias DNF = /usr/bin/dnf
+Cmnd_Alias DNF = /usr/bin/dnf, /usr/bin/rpm
 Cmnd_Alias REBOOT = /sbin/reboot
 Cmnd_Alias SHUTDOWN = /sbin/poweroff
 
