@@ -148,8 +148,6 @@ config_files() {
 			sed -e "s|<user>|${NAME}|" -e "s|<host>|${HOST}|" "$file" > "$dest"
 		done
 	fi
-
-	chown -R root:root /etc
 }
 
 config_grub() {
@@ -183,6 +181,7 @@ config_mountpoints() {
 		} >> "$fstable"
 
 		chmod 1777 /tmp /var/tmp /dev/shm
+		chmod +t /tmp
 	fi
 }
 
@@ -314,7 +313,7 @@ user_permissions() {
 	mkdir -p /home/"${NAME}"/{Documents,Downloads,Projects}
 
 	chown -R "${NAME}":"${NAME}" /home/"${NAME}"
-	chmod -R 0750 /home/"${NAME}"
+	chmod -R 0700 /home/"${NAME}"
 }
 
 user_no_recents() {

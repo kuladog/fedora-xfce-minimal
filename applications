@@ -46,7 +46,7 @@ ADDON_PACKAGES=(
     libavcodec-freeworld
     libvirt
     nm-connection-editor
-#    nordvpn
+    nordvpn
     p7zip
     papirus-icon-theme-dark
     transmission-gtk
