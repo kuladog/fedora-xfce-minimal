@@ -164,9 +164,9 @@ config_mountpoints() {
 
 	local fstable="/etc/fstab"
 
-	# Backup fstab and edit in place.. old skool
+	# Backup fstab and edit in place
 	if [[ -w /etc/fstab ]]; then
-		sed -i \
+		sed -i.bak \
 		-e '/boot/ s=relatime=noatime=' \
 		-e '/\/[[:space:]]/ s=relatime=noatime=' \
 		-e '/home\|var/ s=defaults=noatime,nodev,nosuid=' \

@@ -1,6 +1,7 @@
 # /etc/ssh/sshd_config
 
-Port 1440
+Port <ssh-port>
+
 Protocol 2
 DisableForwarding yes
 UsePAM yes
