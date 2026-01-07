@@ -25,7 +25,7 @@ clear
 
 root_check() {
 	if [[ $EUID -ne 0 ]]; then
-	  echo -e "\nRun the script as root.\n"
+	  echo -e "\n Run the script as root.\n"
 	  exit 1
 	fi
 }
@@ -150,12 +150,35 @@ config_files() {
 	fi
 }
 
+config_permissions() {
+	echo -e "\nSetting file permissions ..."
+
+	# Post-copy sanity check
+	find /etc/systemd -type d -exec chmod 0755 {} +
+	find /etc/systemd -type f -exec chmod 0644 {} +
+
+	find /etc/cron.*/ -type d -exec chmod 0640 {} +
+
+	for file in /etc/{crontab,cron.*,at.*,ssh/sshd_config}; do
+		[[ -f $file ]] && chmod 0600 "$file"
+	done
+
+	for file in /etc/{sudoers,sudoers.d/*}; do
+		[[ -f $file ]] && chmod 0440 "$file"
+	done
+
+	for file in /etc/{shadow,gshadow}; do
+		[[ -f $file ]] && chmod 0400 "$file"
+	done
+}
+
 config_grub() {
 	echo -e "\nUpdating GRUB configuration ..."
 
 	# Rebuild the grub.cfg
-	if [[ -f /etc/default/grub ]]; then
-		grub2-mkconfig -o /boot/grub2/grub.cfg
+	if ! grub2-mkconfig -o /boot/grub2/grub.cfg; then
+		echo -e "\n ERROR: Grub could not be configured."
+		exit 1
 	fi
 }
 
@@ -165,7 +188,7 @@ config_mountpoints() {
 	local fstable="/etc/fstab"
 
 	# Backup fstab and edit in place
-	if [[ -w /etc/fstab ]]; then
+	if [[ -w $fstable ]]; then
 		sed -i.bak \
 		-e '/boot/ s=relatime=noatime=' \
 		-e '/\/[[:space:]]/ s=relatime=noatime=' \
@@ -181,7 +204,6 @@ config_mountpoints() {
 		} >> "$fstable"
 
 		chmod 1777 /tmp /var/tmp /dev/shm
-		chmod +t /tmp
 	fi
 }
 
@@ -207,6 +229,7 @@ config_libvirt() {
 }
 
 config_files
+config_permissions
 config_grub
 config_mountpoints
 config_lightdm
@@ -313,7 +336,7 @@ user_permissions() {
 	mkdir -p /home/"${NAME}"/{Documents,Downloads,Projects}
 
 	chown -R "${NAME}":"${NAME}" /home/"${NAME}"
-	chmod -R 0700 /home/"${NAME}"
+	chmod -R 0750 /home/"${NAME}"
 }
 
 user_no_recents() {

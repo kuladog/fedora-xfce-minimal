@@ -1,11 +1,11 @@
 # source file: applications
 
-# System package groups
+# Fedora package groups
 GROUP_PACKAGES=(
     @base-x
     @standard
     @multimedia
-#    @virtualization
+    @virtualization
 )
 
 # Bare-bones Xfce4
@@ -32,7 +32,7 @@ XFCE_PACKAGES=(
     xfwm4
 )
 
-# Additional applications
+# Additional apps
 ADDON_PACKAGES=(
     atril
     chrony

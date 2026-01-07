@@ -4,7 +4,7 @@
 // This user.js consists mostly of specific browser behaviour and UI configurations, with only a
 // handfull of additional privacy and security tweaks.
 //
-// Last revised: 2025-12-20 (FF 145.0.2)
+// Last revised: 2026-01-01 (FF 146.0.2)
 //
 //
 user_pref("accessibility.typeaheadfind.flashBar", 0);
@@ -40,7 +40,7 @@ user_pref("browser.theme.toolbar-theme", 0);
 user_pref("browser.toolbars.bookmarks.visibility", "never");
 user_pref("browser.translations.automaticallyPopup", false);
 user_pref("browser.translations.enable", false);
-user_pref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[],\"unified-extensions-area\":[\"nordpassstandalone_nordsecurity_com-browser-action\",\"_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"home-button\",\"customizableui-special-spring1\",\"vertical-spacer\",\"urlbar-container\",\"bookmarks-menu-button\",\"downloads-button\",\"customizableui-special-spring2\",\"save-to-pocket-button\",\"fxa-toolbar-menu-button\",\"unified-extensions-button\",\"ublock0_raymondhill_net-browser-action\",\"reset-pbm-toolbar-button\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\"],\"vertical-tabs\":[],\"PersonalToolbar\":[\"import-button\",\"personal-bookmarks\"]},\"seen\":[\"ublock0_raymondhill_net-browser-action\",\"nordpassstandalone_nordsecurity_com-browser-action\",\"_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action\",\"reset-pbm-toolbar-button\"],\"dirtyAreaCache\":[\"nav-bar\",\"vertical-tabs\",\"PersonalToolbar\",\"unified-extensions-area\",\"toolbar-menubar\",\"TabsToolbar\"],\"currentVersion\":21,\"newElementCount\":3}");
+user_pref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[],\"unified-extensions-area\":[],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"home-button\",\"customizableui-special-spring1\",\"vertical-spacer\",\"urlbar-container\",\"bookmarks-menu-button\",\"downloads-button\",\"customizableui-special-spring2\",\"fxa-toolbar-menu-button\",\"unified-extensions-button\",\"ublock0_raymondhill_net-browser-action\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"new-tab-button\"],\"vertical-tabs\":[],\"PersonalToolbar\":[\"personal-bookmarks\"]},\"seen\":[\"ublock0_raymondhill_net-browser-action\"],\"dirtyAreaCache\":[\"nav-bar\",\"vertical-tabs\",\"TabsToolbar\"],\"currentVersion\":23,\"newElementCount\":3}");
 user_pref("browser.uidensity", 1);
 user_pref("browser.urlbar.placeholderName", "DuckDuckGo");
 user_pref("browser.urlbar.shortcuts.bookmarks", false);
