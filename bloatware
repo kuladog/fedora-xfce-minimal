@@ -6,6 +6,7 @@ BLOATWARE_PACKAGES=(
     avahi
     brltty
     cifs-utils
+    cifs-utils-info
     claws-mail
     cups-pk-helper
     cups-printers
@@ -37,8 +38,13 @@ BLOATWARE_PACKAGES=(
     jline-remote-ssh
     jline-remote-telnet
     kasumi-unicode
+    kdump-utils
     kexec-tools
+    kernel*debug*
+    kernel-tools*
     khmeros-base-fonts
+    libkdumpfile
+    libnfsidmap
     libreport
     mailcap
     mediawriter
@@ -46,6 +52,7 @@ BLOATWARE_PACKAGES=(
     ModemManager
     ModemManager-glib
     mpage
+    nfs-utils
     nis
     okular
     openconnect
@@ -54,6 +61,9 @@ BLOATWARE_PACKAGES=(
     pptp
     problem-reporting
     python3-boto3
+    python3-file-magic
+    rpcbind
+    rpm-plugin-systemd-inhibit
     rsh-server
     samba-client
     sane-airscan
@@ -63,6 +73,7 @@ BLOATWARE_PACKAGES=(
     speech-dispatcher
     speech-dispatcher-utils
     speexdsp
+    syslog-ng
     system-config-language
     system-config-printer
     systemd-journal-remote

@@ -90,7 +90,7 @@ install_packages() {
 
 	pkgs=("${GROUP_PACKAGES[@]}" "${XFCE_PACKAGES[@]}" "${ADDON_PACKAGES[@]}")
 
-	dnf install -y --skip-unavailable --allowerasing "${pkgs[@]}"
+	dnf install -y --setopt=install_weak_deps=False --skip-unavailable --allowerasing "${pkgs[@]}"
 
 	# Check if running in VM
 	if [[ $(systemd-detect-virt) != none ]]; then
