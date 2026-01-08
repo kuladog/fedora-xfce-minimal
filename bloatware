@@ -4,6 +4,7 @@ BLOATWARE_PACKAGES=(
     anaconda
     atftpd
     avahi
+    binutils
     brltty
     cifs-utils
     claws-mail
@@ -19,6 +20,7 @@ BLOATWARE_PACKAGES=(
     fedora-flathub-remote
     firefox-langpacks
     galculator
+    gdb
     ghostscript
     gigolo
     gnumeric
@@ -43,6 +45,7 @@ BLOATWARE_PACKAGES=(
     kernel-tools*
     khmeros-base-fonts
     libkdumpfile
+    libmagic
     libnfsidmap
     libreport
     mailcap
@@ -61,6 +64,7 @@ BLOATWARE_PACKAGES=(
     problem-reporting
     python3-boto3
     python3-file-magic
+    python3-pip
     rpcbind
     rpm-plugin-systemd-inhibit
     rsh-server
@@ -72,7 +76,7 @@ BLOATWARE_PACKAGES=(
     speech-dispatcher
     speech-dispatcher-utils
     speexdsp
-    syslog-ng
+    strace
     system-config-language
     system-config-printer
     systemd-journal-remote
