@@ -6,7 +6,6 @@ BLOATWARE_PACKAGES=(
     avahi
     brltty
     cifs-utils
-    cifs-utils-info
     claws-mail
     cups-pk-helper
     cups-printers
