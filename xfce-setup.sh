@@ -88,7 +88,7 @@ add_repositories() {
 install_packages() {
 	echo -e "\nInstalling additional packages ..."
 
-	pkgs=("${GROUP_PACKAGES[@]}" "${XFCE_PACKAGES[@]}" "${ADDON_PACKAGES[@]}")
+	pkgs=("${SYSTEM_PACKAGES[@]}" "${XFCE_PACKAGES[@]}" "${ADDON_PACKAGES[@]}")
 
 	dnf install -y --setopt=install_weak_deps=False --skip-unavailable --allowerasing "${pkgs[@]}"
 
@@ -102,16 +102,19 @@ install_packages() {
 install_theme() {
 	local theme_dir="/home/${NAME}/.themes"
 
+	# Adwaita Grey-dark
 	curl -LO https://github.com/kuladog/adwaita-grey-dark/archive/refs/heads/main.zip
 
 	if [[ -f ${DIR}/main.zip ]]; then
 		echo -e "\nInstalling desktop theme ..."
 
 		mkdir -p "$theme_dir"
-
-		unzip -q main.zip
-		mv ./*grey-dark* "${theme_dir}"/Adwaita-grey-dark
+		unzip -q main.zip && mv ./*grey-dark* "${theme_dir}"/Adwaita-grey-dark
 	fi
+
+	# Papirus folders
+	wget -qO- https://git.io/papirus-folders-install | sh
+	papirus-folders -C bluegrey --theme Papirus-Dark
 }
 
 remove_bloatware() {
@@ -119,7 +122,7 @@ remove_bloatware() {
 
 	# Need to loop when removing
 	if [[ -f ${DIR}/bloatware ]]; then
-		for package in "${BLOATWARE_PACKAGES[@]}"; do
+		for package in "${UNWANTED_PACKAGES[@]}"; do
 			echo -e "\nRemoving $package ...\n"
 			dnf -y remove "$package"
 		done
