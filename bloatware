@@ -5,9 +5,12 @@ UNWANTED_PACKAGES=(
 	avahi
 	cifs-utils
 	cyrus-sasl-plain
+	dnsutils
 	dracut-config-generic
 	gdb-headless
 	ghostscript
+	gvfs-nfs
+	inetd
 	iodine-client
 	kdump-utils
 	kernel*debug*
@@ -19,22 +22,26 @@ UNWANTED_PACKAGES=(
 	libreport
 	minicom
 	ModemManager*
+	mtr
 	nfs-utils
 	nis
 	*pptp
+	pptpd
 	problem-reporting
 	python3-boto3
 	python3-file-magic
 	rpcbind
 	rpm-plugin-systemd-inhibit
-	rsh-server
+	rsh
 	samba-client
 	sos
 	strace
+	syslog-ng
 	systemd-journal-remote
 	*telnet
 	tftpd
 	tftpd-hpa
+	whois
 	xinetd
 	ypbind
 	yp-tools
