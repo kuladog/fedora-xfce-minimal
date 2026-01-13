@@ -3,16 +3,10 @@
 # System packages
 SYSTEM_PACKAGES=(
 	@standard
-	@base-x
 	@multimedia
 #   @virtualization
 	dnf-automatic
 	firejail
-	iwlwifi-mvm-firmware
-	libavcodec-freeworld
-#	libvirt
-    papirus-icon-theme-dark
-	p7zip
 	NetworkManager-wifi
 	nordvpn
 )
@@ -37,19 +31,22 @@ XFCE_PACKAGES=(
     xfwm4
 )
 
-# Additional apps
+# Desktop packages
 ADDON_PACKAGES=(
-    atril
-    firefox-esr
-    firewall-config
-    geany
-    gh
-    gparted
-    nm-connection-editor
-    htop
-    transmission-gtk
-    viewnior
-    vlc
-    xarchiver
-    xed
+	atril
+	firefox-esr
+	firewall-config
+	geany
+	gh
+	gparted
+	htop
+	nm-connection-editor
+	p7zip
+	papirus-icon-theme-dark
+	transmission-gtk
+	viewnior
+	vlc
+	vlc-plugin-ffmpeg
+	xarchiver
+	xed
 )
