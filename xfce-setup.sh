@@ -306,6 +306,7 @@ security_nordvpn() {
 			nordvpn set technology openvpn
 			nordvpn set protocol tcp
 			nordvpn set dns 9.9.9.9 149.112.112.112
+			nordvpn set autoconnect on
 			nordvpn set analytics off
 		"
 	fi
