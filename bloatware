@@ -44,6 +44,7 @@ UNWANTED_PACKAGES=(
 	tftpd
 	tftpd-hpa
 	whois
+	whois-nls
 	xinetd
 	ypbind
 	yp-tools
