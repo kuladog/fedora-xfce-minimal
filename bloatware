@@ -4,6 +4,7 @@ UNWANTED_PACKAGES=(
 	abrt-cli
 	avahi
 	cifs-utils
+	cups-client
 	cyrus-sasl-plain
 	dnsutils
 	dracut-config-generic
@@ -39,6 +40,7 @@ UNWANTED_PACKAGES=(
 	syslog-ng
 	systemd-journal-remote
 	*telnet
+	telnetd
 	tftpd
 	tftpd-hpa
 	whois
