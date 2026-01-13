@@ -7,6 +7,7 @@ SYSTEM_PACKAGES=(
 #   @virtualization
 	dnf-automatic
 	firejail
+	iwlwifi-mvm*
 	NetworkManager-wifi
 	nordvpn
 )

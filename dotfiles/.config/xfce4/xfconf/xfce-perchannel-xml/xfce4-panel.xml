@@ -33,7 +33,7 @@
     </property>
     <property name="plugin-3" type="string" value="applicationsmenu">
       <property name="button-title" type="string" value="  Apps   "/>
-      <property name="button-icon" type="string" value="fedora-logo-sprite"/>
+      <property name="button-icon" type="string" value="distributor-logo-fedora"/>
     </property>
     <property name="plugin-5" type="string" value="separator">
       <property name="expand" type="bool" value="true"/>
