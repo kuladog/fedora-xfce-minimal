@@ -1,4 +1,12 @@
 # ~/.config/firejail/viewnior.local
 
+include ${HOME}/.config/firejail/global.local
+
+mkdir ${HOME}/.config/viewnior
+
+caps.drop all
 net none
 protocol unix
+
+private-bin viewnior,jpegexiforient,jpegtran,fonts
+private-lib imlib2
