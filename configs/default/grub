@@ -2,8 +2,8 @@
 
 GRUB_TIMEOUT=0
 GRUB_DEFAULT=0
-GRUB_CMDLINE_LINUX_DEFAULT="quiet lockdown=integrity lsm=lockdown,yama,selinux"
-GRUB_CMDLINE_LINUX="audit=1 module.sig_enforce=1 force_randomize=on"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet security=selinux lockdown=integrity lsm=lockdown,yama,selinux"
+GRUB_CMDLINE_LINUX="selinux=1 enforcing=1 audit=1 module.sig_enforce=1 force_randomize=on"
 GRUB_DISABLE_RECOVERY=false
 GRUB_GFXMODE=auto
 GRUB_GFXPAYLOAD_LINUX=keep
