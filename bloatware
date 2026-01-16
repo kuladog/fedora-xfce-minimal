@@ -26,7 +26,6 @@ UNWANTED_PACKAGES=(
 	mtr
 	nfs-utils
 	nis
-	*ppp
 	*pptp
 	pptpd
 	problem-reporting
