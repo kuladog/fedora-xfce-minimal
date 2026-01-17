@@ -2,34 +2,30 @@
 
 include ${HOME}/.config/firejail/global.local
 
-mkdir ${HOME}/.config/mozilla/firefox
+# noexec ${HOME} <--- breaks DRM binaries
+ignore noexec ${HOME}
 
-whitelist ${DOWNLOADS}
-whitelist ${HOME}/.mozilla
-whitelist ${HOME}/.cache/mozilla/firefox
-whitelist ${HOME}/.config/mozilla/firefox
-whitelist ${HOME}/.config/gtk-3.0
-whitelist ${HOME}/.themes
+noexec ${DOWNLOADS}
+
+private-tmp
+private-bin firefox-esr,env,sh,bash,dbus-launch,dbus-send
+private-lib libxul.so,libmozglue.so,libmozjs.so
+
+private-etc mime.types,fonts,firefox,xdg,gtk-3.0,X11,pulse
+private-opt firefox-esr
 
 caps.drop all
 disable-mnt
 ipc-namespace
 machine-id
 netfilter
-nogroups
 nonewprivs
 noroot
+nogroups
 nou2f
-seccomp
-seccomp.block-secondary
 
-private-bin firefox,firefox-esr,env,sh,bash,which,dbus-launch,dbus-send
-private-etc hosts,passwd,mime.types,fonts,firefox,xdg,gtk-3.0,X11,pulse,alternatives,localtime,nsswitch.conf
-private-opt firefox-esr
-private-tmp
+seccomp ptrace,open
+seccomp.block-secondary
 
 noexec ${RUNUSER}
 noexec /tmp
-
-# noexec ${HOME} <--- breaks DRM binaries
-ignore noexec ${HOME}

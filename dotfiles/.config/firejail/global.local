@@ -10,5 +10,11 @@ nonewprivs
 
 private-tmp
 
+caps.drop all
+netfilter
+noroot
+nogroups
+
 noexec ${RUNUSER}
 noexec /tmp
+
