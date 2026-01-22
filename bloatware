@@ -5,49 +5,37 @@ UNWANTED_PACKAGES=(
 	avahi
 	cifs-utils
 	cups-client
-	cyrus-sasl-plain
-	dnsutils
-	dracut-config-generic
-	gdb-headless
+	*ftpd
+	gdb
 	ghostscript
 	gvfs-nfs
 	inetd
 	iodine-client
-	kdump-utils
 	kernel*debug*
 	kernel-tools*
-	kexec-tools
-	libkdumpfile
 	libmagic
-	libnfsidmap
 	libreport
 	minicom
 	ModemManager*
-	mtr
 	nfs-utils
 	nis
 	*pptp
 	pptpd
-	problem-reporting
 	python3-boto3
 	python3-file-magic
 	rpcbind
-	rpm-plugin-systemd-inhibit
 	rsh
+	rlogin
 	samba-client
+	snmpd
 	sos
 	strace
-	syslog-ng
-	systemd-journal-remote
+	systemtap
 	*telnet
-	telnetd
-	tftpd
-	tftpd-hpa
 	whois
-	whois-nls
 	xinetd
 	ypbind
-	yp-tools
+	yserv
 ## Xfce Packages
 	asunder
 	catfish
@@ -101,12 +89,16 @@ UNWANTED_PACKAGES=(
 	im-chooser
 	imsettings
 	initial-setup
+	libreoffice*
 	mediawriter
 	okular
+	problem-reporting
+	rhythmbox
 	sane-airscan
 	simple-scan
 	speech-dispatcher*
 	speexdsp
+	thunderbird
 	totem-pl-parser
 	xreader
 	xterm

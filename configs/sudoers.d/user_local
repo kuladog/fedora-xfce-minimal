@@ -1,10 +1,9 @@
 # /etc/sudoers.d/user_local
 
-Defaults use_pty
-Defaults secure_path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-Defaults timestamp_timeout=60
-Defaults umask=0027
+Defaults  use_pty
+Defaults  secure_path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+Defaults  umask=0077
+Defaults  umask_override
 
-root   ALL=(ALL) ALL
 %wheel ALL=(root) NOPASSWD: ALL
 
