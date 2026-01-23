@@ -2,12 +2,12 @@
 
 include globals.local
 
-net none
-protocol unix
-
 read-write ${HOME}
 
 private-bin xed,xdg-open
 private-etc
+
+net none
+protocol unix
 
 private-cache

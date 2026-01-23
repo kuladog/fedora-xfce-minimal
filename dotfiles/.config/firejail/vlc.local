@@ -2,15 +2,15 @@
 
 include globals.local
 
-net none
-protocol unix
-
 read-only ${HOME}
 
 private-bin vlc,vlc-wrapper,ffmpeg
 private-etc
 
+net none
+protocol unix
 seccomp.block-secondary
+
 disable-mnt
 
 private-cache

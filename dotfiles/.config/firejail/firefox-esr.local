@@ -2,12 +2,11 @@
 
 include globals.local
 
-netfilter
-protocol inet
-
 noexec ${DOWNLOADS}
 
+private-bin firefox-esr,env,sh,bash,which,dbus-launch,dbus-send
+private-etc firefox,mime.types,os-release,@tls-ca,@x11
 private-opt firefox-esr
 
+protocol inet
 seccomp.block-secondary
-

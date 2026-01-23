@@ -2,10 +2,9 @@
 
 include globals.local
 
-net none
-protocol unix
-
 read-only ${HOME}
 
+net none
+protocol unix
 seccomp.block-secondary
 disable-mnt
