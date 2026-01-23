@@ -1,0 +1,13 @@
+# ~/.config/firejail/firefox-esr.local
+
+include globals.local
+
+netfilter
+protocol inet
+
+noexec ${DOWNLOADS}
+
+private-opt firefox-esr
+
+seccomp.block-secondary
+

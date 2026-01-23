@@ -1,0 +1,11 @@
+# ~/.config/firejail/atril.local
+
+include globals.local
+
+net none
+protocol unix
+
+read-only ${HOME}
+
+seccomp.block-secondary
+disable-mnt

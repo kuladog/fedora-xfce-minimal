@@ -1,0 +1,13 @@
+# ~/.config/firejail/xed.local
+
+include globals.local
+
+net none
+protocol unix
+
+read-write ${HOME}
+
+private-bin xed,xdg-open
+private-etc
+
+private-cache

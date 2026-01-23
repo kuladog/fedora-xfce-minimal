@@ -1,0 +1,14 @@
+# ~/.config/firejail/viewnior.local
+
+include globals.local
+
+net none
+protocol unix
+
+read-only ${HOME}
+read-write ${HOME}/Downloads
+read-write ${HOME}/Pictures
+
+seccomp.block-secondary
+disable-mnt
+

@@ -1,0 +1,16 @@
+# ~/.config/firejail/vlc.local
+
+include globals.local
+
+net none
+protocol unix
+
+read-only ${HOME}
+
+private-bin vlc,vlc-wrapper,ffmpeg
+private-etc
+
+seccomp.block-secondary
+disable-mnt
+
+private-cache
