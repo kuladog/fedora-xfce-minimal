@@ -3,6 +3,6 @@
 GRUB_TIMEOUT_STYLE=hidden
 GRUB_DISABLE_RECOVERY=false
 GRUB_CMDLINE_LINUX_DEFAULT="quiet lockdown=confidentiality lsm=lockdown,yama,selinux"
-GRUB_CMDLINE_LINUX="selinux=1 enforcing=1 audit=1 module.sig_enforce=1"
+GRUB_CMDLINE_LINUX="selinux=1 enforcing=1 audit=1 intel_iommu=on iommu=pt module.sig_enforce=1"
 GRUB_GFXMODE=auto
 GRUB_GFXPAYLOAD_LINUX=keep

@@ -1,7 +1,6 @@
 # source file: bloatware
 
 UNWANTED_PACKAGES=(
-	abrt-cli
 	avahi
 	cifs-utils
 	cups-client
@@ -21,18 +20,14 @@ UNWANTED_PACKAGES=(
 	nis
 	*pptp
 	pptpd
-	python3-boto3
-	python3-file-magic
 	rpcbind
 	rsh
 	rlogin
 	samba-client
 	snmpd
 	sos
-	strace
 	systemtap
 	*telnet
-	whois
 	xinetd
 	ypbind
 	yserv
