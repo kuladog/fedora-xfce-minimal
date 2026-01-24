@@ -4,8 +4,7 @@ UNWANTED_PACKAGES=(
 	avahi
 	cifs-utils
 	cups-client
-	*ftpd
-	gdb
+	gdb-headless
 	ghostscript
 	gvfs-nfs
 	inetd
@@ -14,23 +13,21 @@ UNWANTED_PACKAGES=(
 	kernel-tools*
 	libmagic
 	libreport
-	minicom
 	ModemManager*
 	nfs-utils
-	nis
 	*pptp
 	pptpd
 	rpcbind
 	rsh
 	rlogin
-	samba-client
+	samba
 	snmpd
 	sos
 	systemtap
 	*telnet
 	xinetd
 	ypbind
-	yserv
+	ypserv
 ## Xfce Packages
 	asunder
 	catfish
@@ -68,6 +65,7 @@ UNWANTED_PACKAGES=(
 	xfdashboard
 	xfmpc
 ## More Bloatware
+	caja-share
 	claws-mail
 	dnfdragora
 	document-scanner
