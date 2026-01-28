@@ -49,32 +49,35 @@ confirm_prompt
 #    PACKAGE MANAGEMENT
 #================================================
 
-source_applications() {
+source_packages() {
 	# Exit setup if apps can't be installed
-	if [[ -f ${DIR}/applications ]]; then
-		source "${DIR}"/applications
+	if [[ -f ${DIR}/packages ]]; then
+		source "${DIR}"/packages
 	else
-		echo "Error: 'applications' file not found."
+		echo "Error: 'packages' file not found."
 		exit 1
 	fi
 }
 
-source_bloatware() {
-	# Continue if no 'bloatware' file found
-	if [[ -f ${DIR}/bloatware ]]; then
-		source "${DIR}"/bloatware
+source_excluded() {
+	# Continue if no 'excluded' file found
+	if [[ -f ${DIR}/excluded ]]; then
+		source "${DIR}"/excluded
 	else
-		echo "Warning: 'bloatware' file not found."
+		echo "Warning: 'excluded' file not found."
 	fi
 }
 
-add_repositories() {
-	echo -e "\nEnabling additional repositories ..."
+install_repositories() {
+	echo -e "\nEnabling repositories ..."
 
 	# Enable RPM Fussion repos
 	dnf install -y \
 	https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
 	https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+	# Remove testing repos
+	rm /etc/yum.repos.d/*testing*.repo
 
 	# Enable erizur/firefox-esr
 	dnf copr enable -y erizur/firefox-esr
@@ -86,7 +89,7 @@ add_repositories() {
 }
 
 install_packages() {
-	echo -e "\nInstalling additional packages ..."
+	echo -e "\nInstalling packages ..."
 
 	pkgs=("${SYSTEM_PACKAGES[@]}" "${XFCE_PACKAGES[@]}" "${ADDON_PACKAGES[@]}")
 
@@ -95,11 +98,11 @@ install_packages() {
 	# Check if running in VM
 	if [[ $(systemd-detect-virt) != none ]]; then
 		echo -e "\nInstalling guest agents ..."
-		dnf install -y @guest-desktop-agents
+		dnf install -y qemu-guest-agent spice-vdagent
 	fi
 }
 
-install_theme() {
+install_themes() {
 	local theme_dir="/home/${NAME}/.themes"
 
 	# Adwaita Grey-dark
@@ -117,11 +120,11 @@ install_theme() {
 	papirus-folders -C bluegrey --theme Papirus-Dark
 }
 
-remove_bloatware() {
+install_excluded() {
 	echo -e "\nRemoving unwanted packages ..."
 
 	# Need to loop when removing
-	if [[ -f ${DIR}/bloatware ]]; then
+	if [[ -f ${DIR}/excluded ]]; then
 		for package in "${UNWANTED_PACKAGES[@]}"; do
 			echo -e "\nRemoving $package ...\n"
 			dnf -y remove "$package"
@@ -129,19 +132,19 @@ remove_bloatware() {
 	fi
 }
 
-source_applications
-source_bloatware
-add_repositories
+source_packages
+source_excluded
+install_repositories
 install_packages
-install_theme
-remove_bloatware
+install_themes
+install_excluded
 
 #================================================
 #    SYSTEM CONFIGURATION
 #================================================
 
 config_files() {
-	echo -e "\nCopying configuration files ..."
+	echo -e "\nConfiguring system files ..."
 
 	# Set user, host and copy
 	if [[ -d ${DIR}/configs ]]; then
@@ -154,7 +157,7 @@ config_files() {
 }
 
 config_permissions() {
-	echo -e "\nSetting file permissions ..."
+	echo -e "\nConfiguring file permissions ..."
 
 	# Post-copy sanity check
 	find /etc/systemd -type d -exec chmod 0755 {} +
@@ -176,7 +179,7 @@ config_permissions() {
 }
 
 config_grub() {
-	echo -e "\nUpdating GRUB configuration ..."
+	echo -e "\nConfiguring GRUB ..."
 
 	# Rebuild the grub.cfg
 	if ! grub2-mkconfig -o /boot/grub2/grub.cfg; then
@@ -186,7 +189,7 @@ config_grub() {
 }
 
 config_mountpoints() {
-    echo -e "\nHardening mount points ..."
+    echo -e "\nConfiguring fstab ..."
 
 	local fstable="/etc/fstab"
 
@@ -211,7 +214,7 @@ config_mountpoints() {
 }
 
 config_lightdm() {
-	echo -e "\nConfiguring display manager ..."
+	echo -e "\nConfiguring LightDM ..."
 
 	# Warn if not installed
 	if command -v lightdm &>/dev/null; then
@@ -225,7 +228,7 @@ config_lightdm() {
 config_libvirt() {
 	# Add user to group
 	if command -v libvirtd &>/dev/null; then
-		echo -e "\nConfiguring virt-manager ..."
+		echo -e "\nConfiguring Virt Manager ..."
 
 		usermod -aG libvirt "$NAME"
 	fi
@@ -242,12 +245,21 @@ config_libvirt
 #    SYSTEM SECURITY
 #================================================
 
+security_services() {
+	# Mask usual suspects
+	for s in avahi-daemon cups nfs pptpd rpcbind rlogin rsh sunrpc telnet ypbind xinetd; do
+		echo -e "\nDisabling $s ..."
+		systemctl disable $s || true
+		systemctl mask $s || true
+	done
+}
+
 security_dnf() {
 	# Enable if installed
 	if command -v dnf-automatic &>/dev/null; then
-		echo -e "\nEnabling DNF security updates ..."
+		echo -e "\nConfiguring DNF security ..."
 
-		systemctl enable --now dnf-automatic.timer
+		systemctl enable --now dnf5-automatic.timer
 	fi
 }
 
@@ -313,6 +325,7 @@ security_nordvpn() {
 }
 
 security_dnf
+security_services
 security_firewall
 security_firejail
 security_nordvpn

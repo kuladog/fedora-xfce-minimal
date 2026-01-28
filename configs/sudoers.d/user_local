@@ -6,4 +6,4 @@ Defaults secure_path=/usr/sbin:/usr/bin:/sbin:/bin
 Defaults umask=0077
 Defaults shell_noargs
 
-%wheel ALL=(root) NOPASSWD: /usr/bin/dnf
+<user> ALL=(root) NOPASSWD: ALL

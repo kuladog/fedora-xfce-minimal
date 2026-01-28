@@ -1,10 +1,11 @@
-# source file: applications
+# source file: packages
 
 # System packages
 SYSTEM_PACKAGES=(
 	@standard
 	@multimedia
-#   @virtualization
+	@virtualization
+	libvirt
 	dnf-automatic
 	firejail
 	iwlwifi-mvm*

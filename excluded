@@ -1,0 +1,39 @@
+# source file: excluded
+
+UNWANTED_PACKAGES=(
+	avahi
+	cifs-utils
+	cups-client
+	dnfdragora
+	f2fs-tools
+	fedora-bookmarks
+	fedora-chromium*
+	fedora-flathub-remote
+	fedora-messaging*
+	fedora-review*
+	firefox-langpacks
+	geolite2*
+	gdb-headless
+	ghostscript
+	gvfs-nfs
+	inetd
+	kernel*debug*
+	kernel-tools*
+	libmagic
+	ModemManager*
+	nfs-utils
+	*pptp
+	pptpd
+	rlogin
+	rpcbind
+	rsh
+	sane-airscan
+	snmpd
+	sos
+	systemtap
+	*telnet
+	whois
+	xinetd
+	ypbind
+	ypserv
+)
