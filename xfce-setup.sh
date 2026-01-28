@@ -110,7 +110,6 @@ install_themes() {
 
 	if [[ -f ${DIR}/main.zip ]]; then
 		echo -e "\nInstalling desktop theme ..."
-
 		mkdir -p "$theme_dir"
 		unzip -q main.zip && mv ./*grey-dark* "${theme_dir}"/Adwaita-grey-dark
 	fi

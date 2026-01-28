@@ -20,6 +20,7 @@ UNWANTED_PACKAGES=(
 	kernel*debug*
 	kernel-tools*
 	libmagic
+	libreport
 	ModemManager*
 	nfs-utils
 	*pptp
