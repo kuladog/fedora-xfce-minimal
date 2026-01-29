@@ -10,7 +10,7 @@ the user directory and run the script. It’ll pull in a minimal set of Xfce and
 drop in some hardened configs, and set up the desktop environment.
 
 Any file in the 'configs' and 'dotfiles' directories can be edited, added, or removed without
-touching the script. The only required file is 'packages'. The 'excluded' file can be
+touching the script. The only required file is 'packages'. The 'excludes' file can be
 safely deleted.
 
 Fedora Everything: https://fedoraproject.org/misc#everything

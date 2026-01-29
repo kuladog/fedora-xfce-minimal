@@ -1,4 +1,4 @@
-# source file: excluded
+# source file: excludes
 
 UNWANTED_PACKAGES=(
 	avahi
@@ -28,7 +28,6 @@ UNWANTED_PACKAGES=(
 	rlogin
 	rpcbind
 	rsh
-	sane-airscan
 	snmpd
 	sos
 	systemtap
@@ -36,5 +35,4 @@ UNWANTED_PACKAGES=(
 	whois
 	xinetd
 	ypbind
-	ypserv
 )

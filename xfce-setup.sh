@@ -59,12 +59,12 @@ source_packages() {
 	fi
 }
 
-source_excluded() {
-	# Continue if no 'excluded' file found
-	if [[ -f ${DIR}/excluded ]]; then
-		source "${DIR}"/excluded
+source_excludes() {
+	# Continue if no 'excludes' file found
+	if [[ -f ${DIR}/excludes ]]; then
+		source "${DIR}"/excludes
 	else
-		echo "Warning: 'excluded' file not found."
+		echo "Warning: 'excludes' file not found."
 	fi
 }
 
@@ -119,11 +119,11 @@ install_themes() {
 	papirus-folders -C bluegrey --theme Papirus-Dark
 }
 
-install_excluded() {
+install_excludes() {
 	echo -e "\nRemoving unwanted packages ..."
 
 	# Need to loop when removing
-	if [[ -f ${DIR}/excluded ]]; then
+	if [[ -f ${DIR}/excludes ]]; then
 		for package in "${UNWANTED_PACKAGES[@]}"; do
 			echo -e "\nRemoving $package ...\n"
 			dnf -y remove "$package"
@@ -132,11 +132,11 @@ install_excluded() {
 }
 
 source_packages
-source_excluded
+source_excludes
 install_repositories
 install_packages
 install_themes
-install_excluded
+install_excludes
 
 #================================================
 #    SYSTEM CONFIGURATION

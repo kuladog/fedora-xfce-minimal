@@ -96,9 +96,7 @@
       "Locked": true
     },
     "GenerativeAI": {
-      "Chatbot": false,
-      "LinkPreviews": false,
-      "TabGroups": false,
+      "Enabled": false,
       "Locked": true
     },
     "Handlers": {
