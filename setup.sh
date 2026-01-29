@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-#  xfce-setup.sh
+#  setup.sh
 #
-#  A simple bash script to set up a Fedora Xfce Minimal workstation
+#  A simple bash script to set up a minimal Fedora Xfce workstation
 #
 #  Repo: github.com/kuladog/fedora-xfce-minimal
 #  Revised: 2026-01-01
