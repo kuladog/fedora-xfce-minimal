@@ -1,8 +1,8 @@
 Fedora Xfce Minimal Setup
 ==========================
 
-A simple bash script to set up a Fedora Xfce Minimal installation. Focus is on building a
-sleek security-hardened system that retains functionality as a daily driver.
+A simple bash script to set up a minimal Fedora Xfce workstation. The focus is on building
+a sleek, security-hardened system that retains functionality as a daily driver.
 
 It’s designed to build on the smallest Fedora installation possible — ideally from the
 Everything ISO. Just install the default "Custom Operating System" then clone this repo into
