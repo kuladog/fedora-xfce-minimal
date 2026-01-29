@@ -20,4 +20,5 @@
     <value type="string" value="network:///"/>
   </property>
   <property name="last-side-pane" type="string" value="ThunarShortcutsPane"/>
+  <property name="last-statusbar-visible" type="bool" value="false"/>
 </channel>
