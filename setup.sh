@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-#
+
 #  setup.sh
 #
 #  A simple bash script to set up a minimal Fedora Xfce workstation
 #
 #  Repo: github.com/kuladog/fedora-xfce-minimal
-#  Revised: 2026-01-01
+#  Revised: 2026-01-28
 #
 
 set -euo pipefail
