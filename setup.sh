@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+#
 #  setup.sh
 #
 #  A simple bash script to set up a minimal Fedora Xfce workstation
