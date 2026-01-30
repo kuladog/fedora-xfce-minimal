@@ -4,6 +4,7 @@ UNWANTED_PACKAGES=(
 	avahi
 	cifs-utils
 	cups-client
+	cyrus-sasl-plain
 	dnfdragora
 	f2fs-tools
 	fedora-bookmarks

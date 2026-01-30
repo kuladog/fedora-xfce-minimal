@@ -246,7 +246,7 @@ config_libvirt
 
 security_services() {
 	# Mask usual suspects
-	for s in avahi-daemon cups nfs pptpd rpcbind rlogin rsh sunrpc telnet ypbind xinetd; do
+	for s in avahi-daemon cups rpcbind rlogin rsh ypbind xinetd; do
 		echo -e "\nDisabling $s ..."
 		systemctl disable $s || true
 		systemctl mask $s || true
