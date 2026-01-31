@@ -24,16 +24,18 @@ UNWANTED_PACKAGES=(
 	libreport
 	ModemManager*
 	nfs-utils
-	*pptp
-	pptpd
+	*pptp*
 	rlogin
 	rpcbind
 	rsh
 	snmpd
 	sos
 	systemtap
-	*telnet
+	telnet*
+	tftp*
+	vsftp
 	whois
 	xinetd
 	ypbind
+	ypserv
 )
