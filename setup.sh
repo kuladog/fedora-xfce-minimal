@@ -253,10 +253,30 @@ security_services() {
 	done
 }
 
-security_dnf() {
+security_access() {
+	echo -e "\nConfiguring system access ..."
+
+	# Disable root shell
+	[[ -f /etc/passwd ]] && \
+	sed -i 's|root:/bin/bash|root:/sbin/nologin|' /etc/passwd
+	passwd -l root
+
+	# Restrict su to wheel
+	[[ -f /etc/pam.d/ ]] && \
+	echo "auth		required	pam_wheel.so use_uid" >> /etc/pam.d/su
+
+	# No empty passwords
+	[[ -f /etc/pam.d/system-auth ]] && \
+	sed -i 's/nullok/ /' /etc/pam.d/system-auth
+
+	[[ -f /etc/pam.d/password-auth ]] && \
+	sed -i 's/nullok/ /' /etc/pam.d/password-auth
+}
+
+security_updates() {
 	# Enable if installed
 	if command -v dnf-automatic &>/dev/null; then
-		echo -e "\nConfiguring DNF security ..."
+		echo -e "\nConfiguring DNF updates ..."
 
 		systemctl enable --now dnf5-automatic.timer
 	fi
@@ -317,14 +337,14 @@ security_nordvpn() {
 			nordvpn set technology openvpn
 			nordvpn set protocol tcp
 			nordvpn set dns 9.9.9.9 149.112.112.112
-			nordvpn set autoconnect on
 			nordvpn set analytics off
 		"
 	fi
 }
 
-security_dnf
 security_services
+security_access
+security_updates
 security_firewall
 security_firejail
 security_nordvpn
