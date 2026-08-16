@@ -9,7 +9,7 @@ Everything ISO. Just install the default "Custom Operating System" then clone th
 the user directory and run the script. It’ll pull in a minimal set of Xfce and app packages,
 drop in some hardened configs, and set up the desktop environment.
 
-Any file in the 'configs' and 'dotfiles' directories can be edited, added, or removed without
+Any file in the 'configs' or 'dotfiles' directories can be edited, added, or removed without
 touching the script. The only required file is 'packages'. The 'excludes' file can be
 safely deleted.
 
