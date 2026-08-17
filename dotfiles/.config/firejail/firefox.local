@@ -4,8 +4,9 @@ include globals.local
 
 noexec ${DOWNLOADS}
 
-private-bin firefox,env,sh,bash,which,dbus-launch,dbus-send
+private-bin firefox-esr,firefox,env,sh,bash,which,dbus-launch,dbus-send
 private-etc firefox,mime.types,os-release,@tls-ca,@x11
+private-opt firefox-esr
 
 protocol inet
 seccomp.block-secondary
