@@ -1,10 +1,11 @@
 // ~/.mozilla/firefox/<profile>/user.js
 //
-// Privacy and security settings are handled by policies in /etc/firefox/policies/policies.json
-// This user.js consists mostly of specific browser behaviour and UI configurations, with only a
-// handfull of additional privacy and security tweaks.
+// Most privacy and security settings are configured in /etc/firefox/policies/policies.json
 //
-// Last revised: 2026-01-01 (FF 146.0.2)
+// This user.js adds fine-grained browser behaviour and UI configurations, and a handfull of
+// privacy and security tweaks not available thru policies.
+//
+// Last revised: 2026-08-28 (Firefox 154)
 //
 //
 user_pref("accessibility.typeaheadfind.flashBar", 0);
@@ -26,9 +27,13 @@ user_pref("browser.preferences.moreFromMozilla", false);
 user_pref("browser.privatebrowsing.forceMediaMemoryCache", true);
 user_pref("browser.privatebrowsing.resetPBM.enabled", true);
 user_pref("browser.profiles.group.enabled", false);
+user_pref("browser.promo.cookiebanners.enabled", false);
+user_pref("browser.promo.focus.enabled", false);
+user_pref("browser.promo.pin.enabled", false);
 user_pref("browser.safebrowsing.downloads.remote.enabled", false);
 user_pref("browser.safebrowsing.provider.google4.dataSharingURL", "");
 user_pref("browser.sessionstore.privacy_level", 2);
+user_pref("browser.shell.checkDefaultBrowser", false);
 user_pref("browser.startup.firstrunSkipsHomepage", true);
 user_pref("browser.startup.homepage", "about:home");
 user_pref("browser.startup.homepage_override.buildID", "");
@@ -59,6 +64,7 @@ user_pref("browser.urlbar.suggest.searches", false);
 user_pref("browser.urlbar.suggest.topsites", false);
 user_pref("browser.urlbar.suggest.trending", false);
 user_pref("browser.urlbar.suggest.weather", false);
+user_pref("browser.vpn_promo.enabled", false);
 user_pref("cookiebanners.bannerClicking.enabled", false);
 user_pref("datareporting.policy.dataSubmissionEnabled", false);
 user_pref("datareporting.usage.uploadEnabled", false);
