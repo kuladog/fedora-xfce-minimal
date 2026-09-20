@@ -5,7 +5,7 @@
 #  A simple bash script to set up a minimal Fedora Xfce workstation
 #
 #  Repo: github.com/kuladog/fedora-xfce-minimal
-#  Revised: 2026-01-28
+#  Revised: 2026-09-20
 #
 
 set -euo pipefail
@@ -350,7 +350,7 @@ security_firejail
 security_nordvpn
 
 #================================================
-#    SETUP USER DIRECTORY
+#    USER PREFERENCES
 #================================================
 
 user_dotfiles() {
@@ -385,6 +385,15 @@ user_no_recents() {
 	chattr +i "$recents_dir" 2>/dev/null || true
 }
 
+user_allow_drm() {
+	echo -e "\nAllowing DRM playback ..."
+
+	file="/etc/firejail/firejail.config"
+
+	# Allow DRM in Firejail
+	sed -i "s|# browser-allow-drm no|browser-allow-drm yes|" "$file"
+}
+
 user_firefox() {
 	echo -e "\nHardening Firefox ..."
 
@@ -393,7 +402,7 @@ user_firefox() {
 	# Remove telemetry features
 	for dir in "${firefox_dirs[@]}"; do
 		[[ -d $dir ]] || continue
-		for f in crashreporter pingsender; do
+		for f in crashhelper crashreporter pingsender; do
 			rm -f "${dir}/${f}"
 		done
 	done
@@ -402,6 +411,7 @@ user_firefox() {
 user_dotfiles
 user_permissions
 user_no_recents
+user_allow_drm
 user_firefox
 
 #================================================
